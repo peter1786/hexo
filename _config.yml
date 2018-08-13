@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 自留地
 subtitle:
-description:
+description: phper|文艺青年
 keywords:
-author: John Doe
-language:
+author: Peter
+language: zh-Hans
 timezone:
 
 # URL
@@ -41,7 +41,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
   
 # Home page setting
@@ -82,3 +82,13 @@ deploy:
   type: git
   repo: https://github.com/peter1786/peter1786.github.io.git
   branch: master
+
+archive_generator:
+  per_page: 10 ##归档页面默认10篇文章标题
+  yearly: true  ##生成年视图
+  monthly: true ##生成月视图
+tag_generator:
+  per_page: 10 ##标签分类页面默认10篇文章
+category_generator:
+   per_page: 10 ###分类页面默认10篇文章
+
