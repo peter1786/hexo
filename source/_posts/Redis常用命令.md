@@ -7,9 +7,9 @@
 <p>title: blog_name<br>
 date: 2018-08-11 13:00:36<br>
 tags:<br>
--test<br>
+-redis<br>
 categories:<br>
--test</p>
+-redis</p>
 <hr>
 <h3 id="string">1 STRING</h3>
 <p>Redis的字符串是一个由字节组成的序列，可以存储3种类型的值：<strong>字节串，整数，浮点数。</strong></p>
