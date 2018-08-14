@@ -2,9 +2,9 @@
 title: Redis常用命令
 date: 2018-08-11 13:00:36
 tags:
-	-redis
+	redis
 categories:
-	-redis
+	redis
   
 ---
 
@@ -107,7 +107,7 @@ categories:
 |ZINTERSTORE      |`ZINTERSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM丨MIN丨MAX]` 计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
 |ZUNIONSTORE      |`ZUNIONSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM丨MIN丨MAX]` 计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
 
-- `WEIGHTS`  选项，你可以为  _每个_  给定有序集  _分别_  指定一个乘法因子(multiplication factor)，每个给定有序集的所有成员的  `score`  值在传递给聚合函数(aggregation function)之前都要先乘以该有序集的因子。如果没有指定  `WEIGHTS`  选项，乘法因子默认设置为  `1`  。
+- `WEIGHTS`  选项，你可以为  *每个* 给定有序集  *分别*  指定一个乘法因子(multiplication factor)，每个给定有序集的所有成员的  `score`  值在传递给聚合函数(aggregation function)之前都要先乘以该有序集的因子。如果没有指定  `WEIGHTS`  选项，乘法因子默认设置为  `1`  。
 - `AGGREGATE` 选项，你可以指定并集的结果集的聚合方式。
 
 ###  pub/sub
