@@ -8,7 +8,7 @@ categories:
   
 ---
 
-### 1 STRING
+###  STRING
 
  Redis的字符串是一个由字节组成的序列，可以存储3种类型的值：**字节串，整数，浮点数。**
 
@@ -33,7 +33,7 @@ categories:
 - 对于一个保存了空串或不存在的健进行自增自减速，Redis会将健当成0来处理。如果对一个值无法被解释为整数或者浮点数的健进行自增自减操作，Redis会返回一个错误。
 - 如果使用setrangea或者SETBIT写入的时候，字符串当前的长度不能满足，那么Redis会自动地使用空字节（null）来填充，然后再执行写入操作
 
-### 2 LIST
+###  LIST
 
 |命令           |用例和描述                   
 |--------------|------------------------------------------ 
@@ -49,7 +49,7 @@ categories:
 |RPOPLPUSH     |`RPOPLPUSH source-key dest-key` 从source-key列表中弹出位于最右边端的元素，然后将这个元素推入到dest-key的最左端，并向用户返回这个元素
 |BRPOPLPUSH     |`BRPOPLPUSH source-key dest-key` 从source-key列表中弹出位于最右边端的元素，然后将这个元素推入到dest-key的最左端，并向用户返回这个元素。如果source-key为空，那么在timeout秒之内阻塞并等待可弹出的元素出现
 
-### 3 SET
+###  SET
 
 |命令         |用例和描述                   
 |------------|------------------------------------------ 
@@ -68,7 +68,7 @@ categories:
 |SUNION      |`SUNION key-name [key-name ...]` 返回那些至少存在于一个集合中的元素         
 |SUNIONSTORE |`SUNIONSTORE dest-key key-name [key-name ...]` 将那些至少存在于一个集合中的元素放到dest-key集合里面
 
-### 4 HASH
+###  HASH
 
 |命令                 |用例和描述                   
 |------------|------------------------------------------ 
@@ -86,7 +86,7 @@ categories:
 |HINCRBY     |`HINCRBY key-name key increment` 自增加整数increment
 |HINCRBYFLOAT|`HINCRBYFLOAT key-name key increment` 自增加浮点数increment
 
-### 5 ZSET
+###  ZSET
 
 |命令         |用例和描述                   
 |------------|------------------------------------------ 
@@ -104,13 +104,13 @@ categories:
 |ZREVRANGEBYSCORE |`ZREVRANGEBYSCORE key-name min max [withscores] [limit offset count]` 按照分值从大小到排列，返回分值介于min和max之间的成员,
 |ZREMRANGEBYRANK  |`ZREMRANGEBYRANK  key-name start stop` 删除排名位于start和stop之间的所有成员
 |ZREMRANGEBYSCORE |`ZREMRANGEBYSCORE key-name min max` 删除分值位于min和max之间的所有成员
-|ZINTERSTORE      |`ZINTERSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM&#124;MIN&#124MAX]` 计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
-|ZUNIONSTORE      |`ZUNIONSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM&verbar;MIN&verbar;MAX]` 计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
+|ZINTERSTORE      |`ZINTERSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM丨MIN丨MAX]` 计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
+|ZUNIONSTORE      |`ZUNIONSTORE dest-key key-count key [key ...] [WEIGHTS weight [weight]] [AGGREGATE SUM丨MIN丨MAX]` 计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 key-count参数指定，并将该并集(结果集)储存到 dest-key。默认情况下，结果集中某个成员的 score 值是所有给定集下该成员 score 值之和
 
 - `WEIGHTS`  选项，你可以为  _每个_  给定有序集  _分别_  指定一个乘法因子(multiplication factor)，每个给定有序集的所有成员的  `score`  值在传递给聚合函数(aggregation function)之前都要先乘以该有序集的因子。如果没有指定  `WEIGHTS`  选项，乘法因子默认设置为  `1`  。
 - `AGGREGATE` 选项，你可以指定并集的结果集的聚合方式。
 
-### 6 pub/sub
+###  pub/sub
 
 |命令         |用例和描述                   
 |------------|------------------------------------------ 
@@ -122,11 +122,11 @@ categories:
 - 旧版Redis如果客户端读取消息速度不够快的话，不断积压的消息会使Redis输出缓冲的体积变得越来越大，可能会导致Redis的速度变慢，甚至崩溃。也可能会导致Redis被操作系统强制杀死，甚至导致操作系统不可用。新版的Redis不会出现这种问题，因为它会自动断开不符合**client-output-buffer-limit pubsub**配置选项要求的订阅客户端
 - 如果客户端在执行订阅操作的过程中断线，那么客户端将丢失在断线期间发送的所有消息，因此pub/sub是不可靠的消息传递操作，有**数据丢失风险**
 
-### 7 其它命令
+###  其它命令
 
 |命令         |用例和描述                   
 |------------|------------------------------------------------- 
-|SORT        |`SORT source-key [BY pattern] [LIMIT　offset count] [GET pattern [GETpattern ...]] [ASC`|`DESC] [ALPHA] [STORE dest-key]` 根据指定的选项，对输入的列表、集合或者有序集合进行排序，然后返回或者存储排序的结果
+|SORT        |`SORT source-key [BY pattern] [LIMIT　offset count] [GET pattern [GETpattern ...]] [ASC丨DESC] [ALPHA] [STORE dest-key]` 根据指定的选项，对输入的列表、集合或者有序集合进行排序，然后返回或者存储排序的结果
 |PERSIS      |`PERSIST key-name` 移除健的过期时间
 |TTL         |`TTL key-name` 查看给定健距离过期还有多少秒
 |EXPIRE      |`EXPIRE key-name seconds` 让给定健在指定的秒数之后过期 
