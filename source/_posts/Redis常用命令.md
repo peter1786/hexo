@@ -4,7 +4,7 @@
 ---
 
 <hr>
-<p>title: blog_name<br>
+<p>title: Redis常用命令<br>
 date: 2018-08-11 13:00:36<br>
 tags:<br>
 -redis<br>
