@@ -1,6 +1,6 @@
 ---
 title: Redis常用命令
-date: 2018-08-11 13:00:36
+date: 2018-03-11 13:00:36
 tags:
 	redis
 categories:
