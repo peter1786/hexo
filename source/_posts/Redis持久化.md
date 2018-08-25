@@ -1,0 +1,65 @@
+---
+
+
+---
+
+<hr>
+<p>title: Redis持久化<br>
+date: 2018-03-23 20:30:39<br>
+tags:<br>
+redis<br>
+categories:<br>
+redis</p>
+<hr>
+<p>Redis是一个基于内存的键值（key-value）存储数据库，如果服务器突然宕机，数据就会全部丢失。为了解决这个问题Redis提出了两种持久化的方案, 分别是<strong>RDB</strong>(Redis Database), <strong>AOF</strong>(Append Ff File)</p>
+<h1 id="rdb-持久化">RDB 持久化</h1>
+<p>RDB持久化是将某个时间点的储于内存中的数据保存到一个RDB文件中。相当在磁盘上创建了内存某个时间的镜像，当服务器进程重新启动时可通过RDB文件还原当时的数据。</p>
+<p>创建快照的方法有以下几种：</p>
+<pre><code>1. 客户端向Redis发送BGSAVE命令。Redis会fork一个子进程来负责写入硬盘，父进度继续处理命令.子进程默认会与父进程共享相同的地址空间，通过cow（copy-on-write）保证父子进程之间不会互相影响。
+2. 客户端向Redis发送SAVE命令。Redis在创建快照完毕之前不会接受任何其它命令
+3. 设置了SAVE配置选项，如save 60 1000；如果设置多个配置选项，当任意一个选项条件被满足时，Redis触发一次BGSAVE命令
+4. 当Redis收到SHUTDOWN命令或标准TERM命令时，会执行一个SAVE命令，然后关闭服务器
+5. 当一个Redis连接另一个Redis服务器，并向对方发送SYNC命令时，那么主服务器会执行BGSAVE命令
+</code></pre>
+<p><strong>优缺点</strong></p>
+<pre><code>1. RDB每次全量备份内存中的数据，如果设置的同步频率太快则会对文件IO造成很大的压力。
+2. 如果发生系统崩溃，用户将丢失最近一次生成之后更改的数据。
+</code></pre>
+<h1 id="aof-持久化">AOF 持久化</h1>
+<p>AOF持久化会将被执行的写命令写到AOF文件的末尾（类似于mysql的binlog功能），以此来记录数据发生的变化, 当服务器进程重新启动时，通过回放AOF文件中的命令恢复数据。</p>
+<p><strong>同步频率：</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>always</td>
+<td>每个Redis写命令都要同步写入硬盘，这样做会严重降低Redis的速度，会对固态硬盘的寿命造成很大影响</td>
+</tr>
+<tr>
+<td>everysec</td>
+<td>每秒同步一次</td>
+</tr>
+<tr>
+<td>no</td>
+<td>让操作系统决定应该何时同步</td>
+</tr>
+</tbody>
+</table><ul>
+<li><code>appendfsync no</code> 选项，系统崩溃时将导致服务器丢失不定数量的数据。另外，如果用户的硬盘处理写入速度不够快的话，当缓冲区被填满时，Redis的写入速度变慢，并导致Redis处理请求的速度变慢</li>
+<li>AOF的缺点是AOF文件体积的可能会很大，导致存储空间不足，当系统重启恢复数据时执行的时间可能会非常长</li>
+</ul>
+<h3 id="重写压缩-aof文件">重写/压缩 AOF文件</h3>
+<p>由于AOF中保存的是写命令，对于每个KEY来说可能对应多次更新操作，所以AOF文件比较占用磁盘空间，为了解决这个问题，redis会定期重写AOF文件。</p>
+<pre><code>1. 用户可以向Redis 发送`BGREWREITEAOF`命令来重写AOF文件
+2. 可以设置`auto-aof-rewrite-percentage`选项和`auto-aof-rewrite-min-size`选项来自动执行BGREWREITEAOF命令
+</code></pre>
+<h1 id="混合持久化">混合持久化</h1>
+<p>rdb 有丢失大量数据的风险，重放 AOF 日志性能很差 。为了解决这个问题,Redis 4.0 开始支持 rdb 和 aof 的混合持久化(默认关闭)。将 rdb 文件的内容和增量的 AOF 日志文件存在一起。这里的 AOF 日志不再是全量的日志，而是自持久化开始到持久化结束的这段时间发生的增量 AOF 日志，通常这部分 AOF 日志很小。<br>
+这样做的好处是可以结合 rdb 和 aof 的优点, 快速加载同时避免丢失过多的数据</p>
+
