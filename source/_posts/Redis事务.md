@@ -30,6 +30,8 @@ Redis事务以MULTI为开始，之后跟着多个命令，最后以EXEC结束。
 |UNWATCH     |用于取消watch命令对所有key的监视
 |DISCARD     |对连接进行重置，取消WATCH命令并清空所有已入队的命令;在EXEC命令执行之前
 
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA0MDg0MDYzNV19
+eyJoaXN0b3J5IjpbNzg0OTA1NDk1LDIwNDA4NDA2MzVdfQ==
 -->
