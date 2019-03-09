@@ -89,33 +89,33 @@ EXPLAIN SELECT * from table WHERE id = 1;
 key_len 的计算规则如下:
 
 -   字符串
-    
+  
     -   char(n): n 字节长度
-        
+      
     -   varchar(n): 如果是 utf8 编码, 则是 3  n + 2字节; 如果是 utf8mb4 编码, 则是 4_ n + 2 字节.
-        
+    
 -   数值类型:
-    
+  
     -   TINYINT: 1字节
-        
+      
     -   SMALLINT: 2字节
-        
+      
     -   MEDIUMINT: 3字节
-        
+      
     -   INT: 4字节
-        
+      
     -   BIGINT: 8字节
-        
+    
 -   时间类型
-    
+  
     -   DATE: 3字节
-        
+      
     -   TIMESTAMP: 4字节
-        
+      
     -   DATETIME: 8字节
-        
--   字段属性: NULL 属性 占用一个字节. 如果一个字段是 NOT NULL 的, 则没有此属性.
     
+-   字段属性: NULL 属性 占用一个字节. 如果一个字段是 NOT NULL 的, 则没有此属性.
+  
 
 ## rows
 

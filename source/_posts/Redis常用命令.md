@@ -4,7 +4,7 @@ date: 2017-03-11 13:00:36
 tags:
 	redis
 categories:
-	数据库
+	nosql
   
 ---
 

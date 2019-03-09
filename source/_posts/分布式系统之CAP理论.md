@@ -2,7 +2,7 @@
 title: 分布式系统之CAP理论
 date: 2017-07-23 21:30:03
 tags:
-	CAP;分布式
+	[CAP, 分布式]
 categories:
 	架构
   
