@@ -6,7 +6,7 @@ originContent: >-
   # JVM
 
 
-  “一次编译，到处运行
+  write once, run anywhere
 
   跨平台是怎样实现的呢？这就要谈及Java虚拟机 
 
